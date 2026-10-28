@@ -1,190 +1,171 @@
-PocketGPT — Your AI Companion, Even Without the Internet
+# PocketGPT — Your AI Companion, Even Without the Internet
 
-A privacy-first, open-source AI companion that runs locally on your computer. Chat, learn, think, and speak with AI without relying on cloud services.
+**A privacy-first, open-source AI companion that runs locally on your Windows PC.** Chat, learn, explore ideas, and talk to AI without sending your conversations to a cloud AI service.
 
-""License: MIT" (https://img.shields.io/badge/License-MIT-green.svg)" (LICENSE)
-"Python" (https://img.shields.io/badge/Python-3.11%2B-blue)
-"Platform" (https://img.shields.io/badge/Platform-Windows-blue)
-"Offline" (https://img.shields.io/badge/AI-Offline-brightgreen)
-"Contributions" (https://img.shields.io/badge/Contributions-Welcome-orange)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Python](https://img.shields.io/badge/Python-3.11%2B-blue)
+![Platform](https://img.shields.io/badge/Platform-Windows-blue)
+![Offline AI](https://img.shields.io/badge/AI-Offline-brightgreen)
+![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-orange)
 
-«Status: Windows MVP working and manually tested with the internet disconnected. Android development is planned.»
+> **Status:** Working Windows MVP, manually tested with the internet disconnected. A standalone Android app is planned, not yet released.
 
-Why PocketGPT?
+## Why PocketGPT?
 
-Most AI assistants depend on an internet connection and remote servers.
+Most AI assistants rely on remote servers. PocketGPT explores a simpler idea: **what if your everyday AI companion lived on your own device?**
 
-PocketGPT explores a different approach: What if your everyday AI companion lived entirely on your own device?
+Use it to discuss ideas, understand difficult passages, practice English, learn vocabulary, or ask programming questions—all with locally running models.
 
-The goal is to make local AI useful for everyday conversations, reading, learning English, understanding difficult ideas, and asking technical questions.
+- **Private by design:** AI processing and conversation storage stay on your computer.
+- **No cloud LLM API key or mandatory account.**
+- **Offline after setup:** Download dependencies and models once, then use the app without an internet connection.
+- **Open source:** Explore the code, report bugs, and contribute improvements.
 
-No cloud LLM API keys. No mandatory account. No internet connection required after the initial setup.
+## Features
 
-Features
+| Feature | Status |
+| --- | --- |
+| Local AI chat with Ollama | ✅ Working |
+| Multi-turn conversations | ✅ Working |
+| Persistent SQLite chat history | ✅ Working |
+| Reopen previous conversations | ✅ Working |
+| Reading and vocabulary companion | ✅ Working |
+| Definitions, synonyms, and examples | ✅ Working |
+| Offline speech-to-text | ✅ Working |
+| Offline spoken replies | ✅ Working |
+| Editable voice transcripts | ✅ Working |
+| Windows use without internet | ✅ Manually verified |
+| Native Android app | 🚧 Planned |
+| Document import and analysis | 💡 Future improvement |
 
-Feature| Status
-Local AI chat using Ollama| ✅ Working
-Multi-turn conversations| ✅ Working
-Persistent conversation history| ✅ Working
-Reopen previous conversations| ✅ Working
-Reading and vocabulary companion| ✅ Working
-Definitions, synonyms, and examples| ✅ Working
-Offline speech-to-text| ✅ Working
-Offline text-to-speech| ✅ Working
-Editable voice transcripts| ✅ Working
-Fully offline Windows operation| ✅ Manually verified
-Native Android app| 🚧 Planned
-Document import and analysis| 💡 Future improvement
+### Local AI chat
 
-Local AI chat
+Ask follow-up questions, explore topics, and select from compatible models already installed in Ollama. The tested default model is **`llama3.2:3b`**.
 
-Ask questions, discuss ideas, learn programming concepts, or explore new topics using a language model running on your own computer.
+### Reading companion
 
-PocketGPT uses Ollama for local inference and supports selecting already-installed local models. The current tested configuration uses "llama3.2:3b".
+Try prompts like:
 
-Reading companion
+- “What does *indolence* mean?”
+- “Give me two synonyms for *meticulous*.”
+- “Explain this paragraph in simple English.”
+- “Help me improve this English sentence.”
 
-Built for readers and curious learners.
+Vocabulary answers use structured output and validation to improve consistency, but model responses can still be inaccurate.
 
-Use PocketGPT to:
+### Offline voice conversations
 
-- Understand unfamiliar English words.
-- Find synonyms and usage examples.
-- Explain difficult concepts and passages.
-- Explore ideas from books.
-- Practice asking questions in English.
+Record a question using your microphone, review or edit the transcript, and send it to the local model. PocketGPT can then read the answer aloud.
 
-Vocabulary responses use structured output and validation to improve consistency, although model answers can still contain mistakes.
+- **Faster Whisper:** local English speech recognition
+- **Ollama:** local language-model inference
+- **Piper:** local text-to-speech
 
-Offline voice conversations
+### Conversation history
 
-Talk to PocketGPT using your microphone and receive spoken responses.
+Chats are saved in a local SQLite database, so you can start a new conversation or return to an older one without a cloud account.
 
-The voice workflow uses:
+## Demo
 
-- Faster Whisper for local speech recognition.
-- Piper for local speech synthesis.
-- Ollama for generating responses.
+**Screenshots and a short demo video are coming soon.** The planned demonstration will show text chat, speech recognition, spoken replies, and operation with Wi-Fi disabled.
 
-You can review and edit recognized text before submitting it.
+## Tech stack
 
-Speech recognition, language-model inference, and speech synthesis all run locally.
+| Component | Technology |
+| --- | --- |
+| Language | Python |
+| Interface | Streamlit |
+| Local LLM runtime | Ollama |
+| Tested LLM | Llama 3.2 3B |
+| Speech recognition | Faster Whisper |
+| Text-to-speech | Piper |
+| Conversation storage | SQLite |
+| Tests | pytest |
 
-Conversation history
+## Architecture
 
-Conversations are stored in a local SQLite database so you can return to previous discussions without relying on a cloud account.
+```text
+                          User
+                           |
+                    Streamlit UI
+                     /         \
+                Text input   Microphone
+                     |           |
+                     |     Faster Whisper
+                     |     (local STT)
+                     \           /
+                      Chat request
+                           |
+                 Conversation manager
+                           |
+                   Ollama local API
+                    127.0.0.1:11434
+                           |
+                    Local language
+                         model
+                           |
+                       AI response
+                      /           \
+                Text output     Piper TTS
+                      |           |
+                SQLite history  Spoken reply
+```
 
-Demo
+All AI inference and speech processing in this workflow run on the user's computer.
 
-Screenshots and a short demonstration video are coming soon.
+## Getting started (Windows)
 
-The planned demo will show PocketGPT answering questions, recognizing speech, and speaking responses while the computer is disconnected from the internet.
-
-Tech stack
-
-Component| Technology
-Language| Python
-Interface| Streamlit
-Local LLM runtime| Ollama
-Tested language model| Llama 3.2 3B
-Speech recognition| Faster Whisper
-Text-to-speech| Piper
-Conversation storage| SQLite
-Testing| pytest
-
-Architecture
-
-                  User
-                   |
-          Streamlit Interface
-                   |
-        +----------+----------+
-        |                     |
-     Text Input           Microphone
-        |                     |
-        |              Faster Whisper
-        |              (Offline STT)
-        |                     |
-        +----------+----------+
-                   |
-          Conversation Manager
-                   |
-            Ollama Local API
-            127.0.0.1:11434
-                   |
-             Local LLM
-             llama3.2:3b
-                   |
-             AI Response
-                   |
-        +----------+----------+
-        |                     |
-     Text Output          Piper TTS
-        |                     |
-        |                Spoken Reply
-        |
-    SQLite History
-
-All AI processing takes place on the user's computer.
-
-Getting started
-
-Requirements
+### Prerequisites
 
 - Windows PC
-- Python 3.11 or newer with compatible package wheels
-- Ollama installed and running locally
-- A locally installed Ollama language model
-- Microphone and speakers for voice features
-- Internet connection for initial package and model downloads
+- Python 3.11 or newer **with compatible package wheels** (the maintainer's working environment used Python 3.11)
+- Git
+- [Ollama](https://ollama.com/download) installed and running locally
+- A locally installed Ollama model
+- Microphone and speakers/headphones for voice features
+- Internet access for the **initial** downloads
 
-The tested development laptop has 16 GB RAM. Actual performance will depend on your hardware and selected models.
+The development laptop used for testing has **16 GB RAM**. Performance depends on your hardware and model choice.
 
-1. Clone the repository
+### 1. Clone the repository
 
 Open PowerShell:
 
+```powershell
 git clone https://github.com/KaushalWalker/PocketGPT-offline-agent.git
 cd PocketGPT-offline-agent
+```
 
-2. Create a Python virtual environment
+### 2. Create an environment and install packages
 
+```powershell
 python -m venv .venv
-
-Install the dependencies:
-
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+```
 
-The project pins "av==18.1.0" because the tested speech-recognition configuration encountered a compatibility error with PyAV 19.0.2.
+`requirements.txt` pins **`av==18.1.0`** because the tested speech-recognition setup encountered a `metadata_errors` compatibility error with PyAV 19.0.2.
 
-3. Install and configure Ollama
+### 3. Install Ollama and download a model
 
-Download Ollama from:
+Install [Ollama](https://ollama.com/download), then run:
 
-https://ollama.com/download
-
-For the tested configuration, download the local language model:
-
+```powershell
 ollama pull llama3.2:3b
-
-This step requires internet access and downloads model weights to your computer.
-
-Check the installed models:
-
 ollama list
+```
 
-Ensure Ollama is running locally. PocketGPT does not automatically download language models.
+The `pull` command downloads model weights and needs an internet connection. Ensure the Ollama service is running. PocketGPT connects to **`http://127.0.0.1:11434`** and does not automatically download language models.
 
-4. Download the offline voice models
+### 4. Download the voice models (one-time setup)
 
-PocketGPT uses two separate speech models:
+| Model | Purpose | Approx. download |
+| --- | --- | ---: |
+| `Systran/faster-whisper-base.en` | English speech recognition | 148 MB |
+| `en_US-lessac-medium` | English speech synthesis | 63 MB |
 
-Model| Purpose| Approximate size
-"Systran/faster-whisper-base.en"| English speech recognition| 148 MB
-"en_US-lessac-medium"| English text-to-speech| 63 MB
+Run the following **from the repository directory** in PowerShell:
 
-Run the following PowerShell commands from the repository directory:
-
+```powershell
 $voiceDir = Join-Path $env:LOCALAPPDATA "PocketAgent\voice"
 $whisperDir = Join-Path $voiceDir "faster-whisper-base.en"
 
@@ -196,149 +177,142 @@ snapshot_download(repo_id="Systran/faster-whisper-base.en", local_dir=r"$whisper
 "@ | .\.venv\Scripts\python.exe -
 
 .\.venv\Scripts\python.exe -m piper.download_voices en_US-lessac-medium --download-dir $voiceDir
+```
 
-Verify the downloaded files:
+Check that the model files exist:
 
+```powershell
 Test-Path (Join-Path $whisperDir "model.bin")
 Test-Path (Join-Path $voiceDir "en_US-lessac-medium.onnx")
 Test-Path (Join-Path $voiceDir "en_US-lessac-medium.onnx.json")
+```
 
-All three commands should return "True".
+All three checks should return `True`. The models are stored under **`%LOCALAPPDATA%\PocketAgent\voice`**, not inside the Git repository. The two voice models require about **211 MB** in total, excluding package dependencies.
 
-These models are stored under the current Windows user's local application data directory, not inside the Git repository.
+### 5. Launch PocketGPT
 
-5. Launch PocketGPT
-
+```powershell
 .\.venv\Scripts\python.exe -m streamlit run app.py
+```
 
-Open the local URL shown in the terminal, typically:
+Open the local URL shown in the terminal, typically **http://localhost:8501**. The port may differ if another Streamlit application is running.
 
-http://localhost:8501
+For voice input, allow microphone access in your browser and **Windows Settings → Privacy & security → Microphone**. To stop the app, press `Ctrl+C` in the terminal.
 
-The exact port may differ if another Streamlit app is already running.
+## Verify that it works offline
 
-Allow microphone access in your browser and Windows privacy settings if you want to use voice features.
+After the one-time downloads:
 
-Stop the application using "Ctrl+C" in the terminal.
-
-Verify offline operation
-
-After installing the dependencies and downloading all required models:
-
-1. Confirm PocketGPT works normally while connected.
-2. Disconnect Wi-Fi and any other internet connection.
-3. Keep Ollama running locally.
-4. Ask a text question.
+1. Start Ollama and PocketGPT while connected to the internet.
+2. Confirm text and voice features work.
+3. Disconnect Wi-Fi and any other internet connection, but keep both local programs running.
+4. Ask a question using text chat.
 5. Record and transcribe a spoken question.
-6. Generate a response and play it using local text-to-speech.
+6. Generate a response and play the spoken answer.
 7. Reopen a saved conversation.
 
-Verification status: The maintainer has successfully completed a manual offline test of the Windows application, including chat, voice input, and spoken responses.
+**Maintainer verification:** The Windows development machine successfully completed a manual offline test of chat, voice recognition, spoken responses, and conversation history. This is a functional test, **not** a formal security or network audit; results may vary by system.
 
-This is a manual functional test, not a formal security or network audit. Users should verify their own installations.
+## Privacy and local data
 
-Privacy by design
+PocketGPT is designed around local processing:
 
-PocketGPT is designed around local processing.
-
-- LLM inference uses the local Ollama API.
+- Ollama inference uses a local API.
 - The Streamlit server is configured to bind to the local loopback interface.
 - Cloud-tagged Ollama models are excluded from selection.
-- Chat history is stored in a local SQLite database.
-- Speech recognition and synthesis use downloaded local models.
+- Conversation history is stored in SQLite.
+- Voice recognition and synthesis use locally downloaded models.
 - Streamlit usage telemetry is disabled in the project configuration.
-- The application does not require cloud AI API keys.
+- No cloud AI API keys are required.
 
-Conversation history is stored at:
+**Chat database:** `%LOCALAPPDATA%\PocketAgent\conversations.sqlite3`
+**Voice assets:** `%LOCALAPPDATA%\PocketAgent\voice`
 
-%LOCALAPPDATA%\PocketAgent\conversations.sqlite3
+Initial downloads require external services. Browser, operating-system, Ollama, and other third-party software have their own behavior and privacy considerations.
 
-Models and packages must initially be downloaded from external sources. Browser, operating-system, and third-party software behavior is outside the scope of the application's privacy guarantees.
+## Performance and testing
 
-Performance and testing
+The repository includes `benchmark.py` for local vocabulary-response measurements:
 
-PocketGPT includes "benchmark.py" for measuring local vocabulary response performance.
-
-Run:
-
+```powershell
 .\.venv\Scripts\python.exe benchmark.py llama3.2:3b
+```
 
-Example results from a local test on October 27, 2026:
+Example measurements from one development laptop on **October 27, 2026**:
 
-Vocabulary prompt| First visible field| Total time
-Ephemeral| 2.92 s| 10.85 s
-Meticulous| 5.44 s| 14.94 s
-Reluctant| 4.50 s| 13.90 s
+| Vocabulary prompt | First visible field | Total time |
+| --- | ---: | ---: |
+| Ephemeral | 2.92 s | 10.85 s |
+| Meticulous | 5.44 s | 14.94 s |
+| Reluctant | 4.50 s | 13.90 s |
 
-These are measurements from one development machine, not guaranteed performance across devices. Response quality and timing depend on the hardware, model, and prompt.
+These are illustrative measurements, not guaranteed timings.
 
-Run tests
+Install the test runner if it is not already available:
 
+```powershell
+.\.venv\Scripts\python.exe -m pip install pytest
 .\.venv\Scripts\python.exe -m pytest -q
+```
 
-The automated tests use mocked model and speech-engine components where appropriate. Real microphone and offline-operation tests must be performed separately.
+Some automated tests mock the language model and speech engines. Test real microphones, audio playback, and disconnected operation separately.
 
-Roadmap
+## Roadmap
 
-Windows
+### Windows
 
 - [x] Local language-model integration
-- [x] Multi-turn chat
-- [x] Persistent conversation history
-- [x] Reading companion
+- [x] Multi-turn chat and persistent history
+- [x] Reading and vocabulary companion
 - [x] Offline speech recognition
-- [x] Offline spoken responses
+- [x] Offline spoken replies
 - [x] Manual offline verification
 - [ ] Improved interface and accessibility
 - [ ] Document import and analysis
 - [ ] Additional language support
 
-Android
+### Android (planned)
 
 - [ ] Native Android interface
-- [ ] On-device quantized LLM
+- [ ] On-device quantized language model
 - [ ] Local conversation history
 - [ ] Offline speech recognition
 - [ ] Offline text-to-speech
 - [ ] Airplane-mode testing
 - [ ] Performance optimization for mobile hardware
 
-The Android application is a future development milestone. It is not currently included as a working release.
+**Android is not yet available as a working release.**
 
-Contributing
+## Contributing
 
-PocketGPT is open to contributors, whether you're a beginner or an experienced developer.
-
-Contributions involving bug fixes, documentation, accessibility, model optimization, reading features, and offline voice improvements are welcome.
-
-To contribute:
+Contributions are welcome from beginners and experienced developers alike. Bug reports, documentation improvements, accessibility work, tests, reading features, and local-model optimizations are all valuable.
 
 1. Fork the repository.
 2. Create a feature branch.
-3. Make and test your changes.
-4. Open a pull request explaining your changes.
+3. Make your changes and test them.
+4. Open a pull request explaining what changed and why.
 
-Please read "CONTRIBUTING.md" (CONTRIBUTING.md) before submitting contributions.
+For larger features, please open an Issue first. See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
-For larger changes, open an Issue first to discuss the approach.
+## License
 
-License
+The original PocketGPT project code is licensed under the [MIT License](LICENSE).
 
-The original PocketGPT project code is released under the "MIT License" (LICENSE).
+**Third-party software and model licenses are separate.** In particular, `piper-tts` is GPL-3.0-or-later, while the selected Piper voice is MIT-licensed. Anyone redistributing bundled applications or dependencies should review and comply with the applicable terms.
 
-Third-party packages, models, and voices retain their respective licenses. In particular, "piper-tts" is GPL-3.0-or-later, while the selected Piper voice is MIT-licensed. Redistributors are responsible for satisfying applicable license obligations.
+## Acknowledgments
 
-Author
+Built with open-source projects including [Ollama](https://github.com/ollama/ollama), [Streamlit](https://github.com/streamlit/streamlit), [Faster Whisper](https://github.com/SYSTRAN/faster-whisper), and [Piper](https://github.com/OHF-Voice/piper1-gpl).
 
-Kaushal Jambhale
+## Author
 
-AI/ML Engineer | Building practical AI systems
+**Kaushal Jambhale** — AI/ML Engineer building practical AI systems
 
-- GitHub: https://github.com/KaushalWalker
-- LinkedIn: https://www.linkedin.com/in/kaushaljambhle/
+- [GitHub](https://github.com/KaushalWalker)
+- [LinkedIn](https://www.linkedin.com/in/kaushaljambhle/)
 
 ---
 
-PocketGPT is an experiment in making AI more personal, private, and accessible—one device at a time.
+**Your AI. Your device. Your privacy.**
 
-If you find the project useful, consider starring the repository, opening an Issue, or contributing an improvement.
+If PocketGPT is useful to you, consider starring the repository, opening an Issue, or contributing an improvement.
