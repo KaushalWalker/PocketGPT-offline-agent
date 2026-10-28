@@ -1,0 +1,136 @@
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python caches and build files
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.toml
+.streamlit/secrets.toml
+
+# Local databases and conversation history
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+
+# Local AI models and weights
+*.gguf
+*.onnx
+*.onnx.json
+*.bin
+*.safetensors
+*.pt
+*.pth
+models/
+voice_models/
+
+# Audio recordings and generated speech
+*.wav
+*.mp3
+*.flac
+*.ogg
+*.m4a
+
+# Logs and temporary files
+*.log
+*.tmp
+tmp/
+temp/
+
+# Windows and editor files
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+
+# Streamlit local state
+.streamlit/cache/
+
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python caches and build files
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets.toml
+.streamlit/secrets.toml
+
+# Local databases and conversation history
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+
+# Local AI models and weights
+*.gguf
+*.onnx
+*.onnx.json
+*.bin
+*.safetensors
+*.pt
+*.pth
+models/
+voice_models/
+
+# Audio recordings and generated speech
+*.wav
+*.mp3
+*.flac
+*.ogg
+*.m4a
+
+# Logs and temporary files
+*.log
+*.tmp
+tmp/
+temp/
+
+# Windows and editor files
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+
+# Streamlit local state
+.streamlit/cache/
